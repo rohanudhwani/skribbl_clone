@@ -4,6 +4,7 @@ const app = express();
 const port = process.env.PORT || 3000;
 var server = http.createServer(app)
 const mongoose = require('mongoose');
+const Room = require('./models/Room');
 
 var io = require('socket.io')(server);
 const config = require('./config');
@@ -22,7 +23,12 @@ io.on('connection', (socket) => {
     console.log('user connected');
     socket.on('create-game', async({nickname, name, occupancy, maxRounds}) => {
         try{
-            
+            const existingRoom = await Room.findOne({name})
+            if(existingRoom){
+                return socket.emit('error-message', 'Room already exists');
+            }
+            let room =  new Room()
+            const word = getWord()
         } catch(err){
             console.log(err);
         }
