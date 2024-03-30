@@ -18,6 +18,17 @@ mongoose.connect(DB).then(() => {
     console.log('Connected to MongoDB');
 }).catch((err) => console.log(err));
 
+io.on('connection', (socket) => {
+    console.log('user connected');
+    socket.on('create-game', async({nickname, name, occupancy, maxRounds}) => {
+        try{
+            
+        } catch(err){
+            console.log(err);
+        }
+    });
+});
+
 server.listen(port, "0.0.0.0", () => {
     console.log(`Server is running on port: ${port}`);
 });

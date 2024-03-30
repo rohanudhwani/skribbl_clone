@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:skribbl_clone/paint_screen.dart';
 import 'package:skribbl_clone/widgets/custom_text_field.dart';
 
 class CreateRoomScreen extends StatefulWidget {
@@ -13,6 +14,24 @@ class _CreateRoomScreenState extends State<CreateRoomScreen> {
   final TextEditingController _roomNameController = TextEditingController();
   late String? _maxRoundsValue;
   late String? _roomSizeValue;
+
+  void createRoom() {
+    if (_nameController.text.isNotEmpty &&
+        _roomNameController.text.isNotEmpty &&
+        _maxRoundsValue != null &&
+        _roomSizeValue != null) {
+      Map data = {
+        "nickname": _nameController.text,
+        "name": _roomNameController.text,
+        "occupancy": _maxRoundsValue,
+        "maxRounds": _roomSizeValue
+      };
+      Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) =>
+              PaintScreen(data: data, screenFrom: 'createRoom')));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -91,7 +110,7 @@ class _CreateRoomScreenState extends State<CreateRoomScreen> {
           ),
           SizedBox(height: 40),
           ElevatedButton(
-              onPressed: () {},
+              onPressed: createRoom,
               style: ButtonStyle(
                 backgroundColor: MaterialStateProperty.all(Colors.blue),
                 minimumSize: MaterialStateProperty.all(
