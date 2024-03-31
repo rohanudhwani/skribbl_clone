@@ -12,6 +12,7 @@ const config = require('./config');
 //middleware
 app.use(express.json());
 
+
 //Connect to our MongoDB database
 const DB = `mongodb+srv://${config.username}:${config.password}@cluster0.mmenq8n.mongodb.net/`
 
